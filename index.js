@@ -165,6 +165,7 @@ const internalCaptureWebsite = async (input, options) => {
 		page = await browser.newPage();
 
 		if (options.blockAds) {
+			// eslint-disable-next-line n/no-unsupported-features/node-builtins
 			const blocker = await PuppeteerBlocker.fromPrebuiltFull(fetch, {
 				path: 'engine.bin',
 				read: fs.readFile,
