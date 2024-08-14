@@ -6,7 +6,7 @@ import type {
 	Protocol,
 	Product,
 	BoundingBox,
-} from 'puppeteer';
+} from 'puppeteer-core';
 
 export type Authentication = {
 	readonly username: string;
@@ -478,4 +478,4 @@ declare const captureWebsite: {
 
 export default captureWebsite;
 
-export {type PuppeteerLaunchOptions as LaunchOptions} from 'puppeteer';
+export {type PuppeteerLaunchOptions as LaunchOptions} from 'puppeteer-core';

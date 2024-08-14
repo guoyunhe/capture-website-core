@@ -1,4 +1,17 @@
-# capture-website
+# capture-website-core
+
+Forked from [capture-website](https://github.com/sindresorhus/capture-website).
+
+capture-website uses puppeteer and always downloads Chromium when install, which takes time and disk space.
+
+capture-website-core uses puppeteer-core and avoids downloading Chromium as long as compatible browsers found in your system:
+
+1. Chrome
+2. MS Edge
+3. Cached Chromium
+4. Download Chromium
+
+---
 
 > Capture screenshots of websites
 

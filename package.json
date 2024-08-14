@@ -1,14 +1,14 @@
 {
-	"name": "capture-website",
-	"version": "4.1.0",
-	"description": "Capture screenshots of websites",
+	"name": "capture-website-core",
+	"version": "4.1.1",
+	"description": "Capture screenshots of websites, with puppeteer-core",
 	"license": "MIT",
-	"repository": "sindresorhus/capture-website",
-	"funding": "https://github.com/sponsors/sindresorhus",
+	"repository": "guoyunhe/capture-website-core",
+	"funding": "https://github.com/sponsors/guoyunhe",
 	"author": {
-		"name": "Sindre Sorhus",
-		"email": "sindresorhus@gmail.com",
-		"url": "https://sindresorhus.com"
+		"name": "Guo Yunhe",
+		"email": "i@guoyunhe.me",
+		"url": "https://guoyunhe.me/"
 	},
 	"type": "module",
 	"exports": {
@@ -44,8 +44,12 @@
 	],
 	"dependencies": {
 		"@cliqz/adblocker-puppeteer": "^1.30.0",
+		"edge-paths": "^2.2.1",
 		"file-url": "^4.0.0",
-		"puppeteer": "^22.14.0",
+		"import-meta-resolve": "^4.1.0",
+		"puppeteer": "npm:puppeteer-core@^22.14.0",
+		"puppeteer-core": "^22.14.0",
+		"node-fetch": "^3.2.10",
 		"tough-cookie": "^4.1.4"
 	},
 	"devDependencies": {

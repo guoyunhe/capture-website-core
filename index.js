@@ -1,12 +1,18 @@
 /* global document */
 import process from 'node:process';
 import fs from 'node:fs/promises';
+import { existsSync } from 'node:fs';
 import path from 'node:path';
 import {setTimeout} from 'node:timers/promises';
 import fileUrl from 'file-url';
-import puppeteer, {KnownDevices} from 'puppeteer';
+import puppeteer, {KnownDevices} from 'puppeteer-core';
 import toughCookie from 'tough-cookie';
 import {PuppeteerBlocker} from '@cliqz/adblocker-puppeteer';
+import fetch from 'node-fetch'; // TODO: Use the core Fetch method when targeting Node.js 18.
+import { execSync } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
+import { resolve } from 'import-meta-resolve'
+import edgePaths from 'edge-paths';
 
 const isUrl = string => /^(https?|file):\/\/|^data:/.test(string);
 
@@ -156,6 +162,40 @@ const internalCaptureWebsite = async (input, options) => {
 	if (options.debug) {
 		launchOptions.headless = false;
 		launchOptions.slowMo = 100;
+	}
+
+
+	try {
+		// First, check system Chrome existence
+		launchOptions.executablePath = puppeteer.executablePath('chrome');
+	} catch (e) {
+		// chrome not found
+	}
+
+	if (!launchOptions.executablePath) {
+		try {
+			// First, check system Chrome existence
+			launchOptions.executablePath = puppeteer.executablePath('chromium');
+		} catch (e) {
+			// chromium not found
+		}
+	}
+
+	if (!launchOptions.executablePath) {
+		try {
+			// Second, check system MS Edge existence
+			launchOptions.executablePath = edgePaths.getAnyEdgeLatest();
+		} catch (e) {
+			// edge not found
+		}
+	}
+
+	if (!launchOptions.executablePath) {
+		// Finally, check local Chromium existance. If not found, run the download script
+		if (!puppeteer.executablePath() || !existsSync(puppeteer.executablePath())) {
+			const installScript = fileURLToPath(await resolve('puppeteer-core/install.js', import.meta.url));
+			execSync('node ' + installScript);
+		}
 	}
 
 	let browser;
